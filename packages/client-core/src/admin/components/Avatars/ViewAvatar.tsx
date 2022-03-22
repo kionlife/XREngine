@@ -42,7 +42,7 @@ const Input = styled('input')({
 
 interface Props {
   openView: boolean
-  closeViewModel?: (open: boolean) => void
+  closeViewModal?: (open: boolean) => void
   avatarData: AvatarInterface
 }
 
@@ -52,7 +52,7 @@ let renderer: WebGLRenderer = null!
 const ViewAvatar = (props: Props) => {
   const classes = useStyles()
   const { t } = useTranslation()
-  const { openView, closeViewModel, avatarData } = props
+  const { openView, closeViewModal, avatarData } = props
   const [editMode, setEditMode] = useState(false)
   const [state, setState] = useState({
     name: '',
@@ -74,9 +74,8 @@ const ViewAvatar = (props: Props) => {
   const [error, setError] = useState('')
   const [selectedAvatarlUrl, setSelectedAvatarUrl] = useState<any>(null)
 
-  const ref = useRef(null)
   const handleCloseDrawer = () => {
-    closeViewModel && closeViewModel(false)
+    closeViewModal && closeViewModal(false)
   }
 
   const initialData = () => {
@@ -260,7 +259,7 @@ const ViewAvatar = (props: Props) => {
         })
       }
       setEditMode(false)
-      closeViewModel && closeViewModel(false)
+      closeViewModal && closeViewModal(false)
     } else {
       setError(t('admin:components.avatar.fillRequiredFields'))
       setOpenAlter(true)
@@ -364,21 +363,21 @@ const ViewAvatar = (props: Props) => {
                 </>
               ) : (
                 <>
-                  <div id="stage" style={{ width: '500px', height: '250px' }}></div>
+                  <div id="stage" style={{ width: '500px', height: '250px' }} />
                   <label htmlFor="contained-button-file" style={{ marginRight: '8px' }}>
                     <Input
                       accept={AVATAR_FILE_ALLOWED_EXTENSIONS}
                       id="contained-button-file"
                       type="file"
                       onChange={handleAvatarChange}
-                      disabled={avatarModel ? true : false}
+                      disabled={!!avatarModel}
                     />
                     <Button
                       variant="contained"
                       component="span"
                       // classes={{ root: classes.rootBtn }}
                       endIcon={<SystemUpdateAlt />}
-                      disabled={avatarModel ? true : false}
+                      disabled={!!avatarModel}
                     >
                       Avatar
                     </Button>

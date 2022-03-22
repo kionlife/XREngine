@@ -5,7 +5,7 @@ import { Instance } from '@xrengine/common/src/interfaces/Instance'
 import { Location } from '@xrengine/common/src/interfaces/Location'
 
 import { useAuthState } from '../../../user/services/AuthService'
-import ConfirmModel from '../../common/ConfirmModel'
+import ConfirmModal from '../../common/ConfirmModal'
 import TableComponent from '../../common/Table'
 import { instanceColumns, InstanceData } from '../../common/variables/instance'
 import { InstanceService, INSTNCE_PAGE_LIMIT, useInstanceState } from '../../services/InstanceService'
@@ -44,7 +44,7 @@ const InstanceTable = (props: Props) => {
     setPage(newPage)
   }
 
-  const handleCloseModel = () => {
+  const handleCloseModal = () => {
     setPopConfirmOpen(false)
   }
 
@@ -77,7 +77,7 @@ const InstanceTable = (props: Props) => {
 
   React.useEffect(() => {
     if (!isMounted.current) return
-    if ((user.id.value && adminInstances.updateNeeded.value) || refetch === true) {
+    if ((user.id.value && adminInstances.updateNeeded.value) || refetch) {
       InstanceService.fetchAdminInstances('increment', search)
     }
     setRefetch(false)
@@ -108,7 +108,7 @@ const InstanceTable = (props: Props) => {
             setInstanceName(ipAddress)
           }}
         >
-          <span className={classes.spanDange}>{t('admin:components.locationModel.lbl-delete')}</span>
+          <span className={classes.spanDange}>{t('admin:components.locationModal.lbl-delete')}</span>
         </a>
       )
     }
@@ -129,9 +129,9 @@ const InstanceTable = (props: Props) => {
         handlePageChange={handlePageChange}
         handleRowsPerPageChange={handleRowsPerPageChange}
       />
-      <ConfirmModel
+      <ConfirmModal
         popConfirmOpen={popConfirmOpen}
-        handleCloseModel={handleCloseModel}
+        handleCloseModal={handleCloseModal}
         submit={submitRemoveInstance}
         name={instanceName}
         label={'instance'}

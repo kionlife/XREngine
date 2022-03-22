@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import FilterListIcon from '@mui/icons-material/FilterList'
-import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
 import Checkbox from '@mui/material/Checkbox'
 import Divider from '@mui/material/Divider'
@@ -22,7 +21,7 @@ import { UserService } from '../../services/UserService'
 import adminStyles from '../../styles/admin.module.scss'
 import { useStyles } from '../../styles/ui'
 import styles from '../Admin.module.scss'
-import UserModel from './CreateUser'
+import UserModal from './CreateUser'
 import UserTable from './UserTable'
 
 interface InputSelectProps {
@@ -61,7 +60,7 @@ const Users = () => {
     }
     setUserModalOpen(open)
   }
-  const closeViewModel = (open: boolean) => {
+  const closeViewModal = (open: boolean) => {
     setUserModalOpen(open)
   }
   const handleSkipGuests = (e: any) => {
@@ -122,7 +121,7 @@ const Users = () => {
       <div className={classes.rootTable}>
         <UserTable search={search} />
       </div>
-      <UserModel open={userModalOpen} handleClose={openModalCreate} closeViewModel={closeViewModel} />
+      <UserModal open={userModalOpen} handleClose={openModalCreate} closeViewModal={closeViewModal} />
       <Menu
         anchorEl={anchorEl}
         id="account-menu"

@@ -532,7 +532,7 @@ export const useStyles = makeStyles((theme: Theme) =>
         width: '90%'
       }
     },
-    inputConatiner: {
+    inputContainer: {
       width: '100%',
       marginBottom: '15px',
 
@@ -540,11 +540,18 @@ export const useStyles = makeStyles((theme: Theme) =>
         width: '100%'
       }
     },
-    buttonConatiner: {
+    buttonContainer: {
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'flex-end'
+    },
+    publicProjectContainer: {
+      display: 'flex',
+      flexDirection: 'column'
+    },
+    accentText: {
+      color: '#5151FF'
     }
   })
 )

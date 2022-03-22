@@ -8,7 +8,7 @@ import Chip from '@mui/material/Chip'
 
 import { useErrorState } from '../../../common/services/ErrorService'
 import { useAuthState } from '../../../user/services/AuthService'
-import ConfirmModel from '../../common/ConfirmModel'
+import ConfirmModal from '../../common/ConfirmModal'
 import { useFetchAdminInstance } from '../../common/hooks/Instance.hooks'
 import { useFetchAdminScenes, useFetchLocation, useFetchLocationTypes } from '../../common/hooks/Location.hooks'
 import { useFetchUsersAsAdmin } from '../../common/hooks/User.hooks'
@@ -31,7 +31,7 @@ const LocationTable = (props: LocationProps) => {
   const [popConfirmOpen, setPopConfirmOpen] = React.useState(false)
   const [locationId, setLocationId] = React.useState('')
   const [locationName, setLocationName] = React.useState('')
-  const [viewModel, setViewModel] = React.useState(false)
+  const [viewModal, setViewModal] = React.useState(false)
   const [locationAdmin, setLocationAdmin] = React.useState<Location>()
   const authState = useAuthState()
   const user = authState.user
@@ -55,7 +55,7 @@ const LocationTable = (props: LocationProps) => {
     setPage(newPage)
   }
 
-  const handleCloseModel = () => {
+  const handleCloseModal = () => {
     setPopConfirmOpen(false)
   }
 
@@ -69,7 +69,7 @@ const LocationTable = (props: LocationProps) => {
     setPage(0)
   }
 
-  const openViewModel = (open: boolean, location: Location) => (event: React.KeyboardEvent | React.MouseEvent) => {
+  const openViewModal = (open: boolean, location: Location) => (event: React.KeyboardEvent | React.MouseEvent) => {
     if (
       event.type === 'keydown' &&
       ((event as React.KeyboardEvent).key === 'Tab' || (event as React.KeyboardEvent).key === 'Shift')
@@ -77,11 +77,11 @@ const LocationTable = (props: LocationProps) => {
       return
     }
     setLocationAdmin(location)
-    setViewModel(open)
+    setViewModal(open)
   }
 
-  const closeViewModel = (open) => {
-    setViewModel(open)
+  const closeViewModal = (open) => {
+    setViewModal(open)
   }
 
   const createData = (
@@ -109,7 +109,7 @@ const LocationTable = (props: LocationProps) => {
       videoEnabled,
       action: (
         <>
-          <a href="#h" className={classes.actionStyle} onClick={openViewModel(true, el)}>
+          <a href="#h" className={classes.actionStyle} onClick={openViewModal(true, el)}>
             <span className={classes.spanWhite}>{t('admin:components.index.view')}</span>
           </a>
           <a
@@ -180,14 +180,14 @@ const LocationTable = (props: LocationProps) => {
         handlePageChange={handlePageChange}
         handleRowsPerPageChange={handleRowsPerPageChange}
       />
-      <ConfirmModel
+      <ConfirmModal
         popConfirmOpen={popConfirmOpen}
-        handleCloseModel={handleCloseModel}
+        handleCloseModal={handleCloseModal}
         submit={submitRemoveLocation}
         name={locationName}
         label={'location'}
       />
-      <ViewLocation openView={viewModel} closeViewModel={closeViewModel} locationAdmin={locationAdmin} />
+      <ViewLocation openView={viewModal} closeViewModal={closeViewModal} locationAdmin={locationAdmin} />
     </React.Fragment>
   )
 }

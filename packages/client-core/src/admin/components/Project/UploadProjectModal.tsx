@@ -81,9 +81,9 @@ const UploadProjectModal = (props: Props): any => {
               [classes.modalContent]: true
             })}
           >
-            {processing === false && createOrPatch === 'patch' && (
+            {!processing && createOrPatch === 'patch' && (
               <FormControl>
-                <div className={classes.inputConatiner}>
+                <div className={classes.inputContainer}>
                   {!isPublicUrl && repos && repos.length != 0 ? (
                     <Select
                       labelId="demo-controlled-open-select-label"
@@ -105,8 +105,8 @@ const UploadProjectModal = (props: Props): any => {
                         ))}
                     </Select>
                   ) : (
-                    <div>
-                      <label>{t('admin:components.project.insertPublicUrl')}</label>
+                    <div className={classes.publicProjectContainer}>
+                      <label className={classes.accentText}>{t('admin:components.project.insertPublicUrl')}</label>
                       <TextField
                         className={classes.marginb10}
                         id="urlSelect"
@@ -117,7 +117,7 @@ const UploadProjectModal = (props: Props): any => {
                     </div>
                   )}
                 </div>
-                <div className={classes.buttonConatiner}>
+                <div className={classes.buttonContainer}>
                   <Button
                     type="submit"
                     startIcon={<GitHubIcon />}
@@ -145,10 +145,10 @@ const UploadProjectModal = (props: Props): any => {
                 </div>
               </FormControl>
             )}
-            {processing === true && (
+            {processing && (
               <div>
                 <CircularProgress color="primary" />
-                <div>{t('admin:components.project.processing')}</div>
+                <div className={classes.accentText}>{t('admin:components.project.processing')}</div>
               </div>
             )}
             {error && error.length > 0 && <h2 className={classes.errorMessage}>{error}</h2>}

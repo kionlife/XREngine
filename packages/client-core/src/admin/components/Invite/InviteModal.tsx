@@ -1,5 +1,4 @@
 import classNames from 'classnames'
-import _ from 'lodash'
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator'
@@ -43,7 +42,7 @@ const phoneRegex = /^[0-9]{10}$/
  * @param props
  */
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     '& .MuiFilledInput-root': {
       background: 'rgb(232, 241, 250)'
@@ -85,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const InviteModel = (props: Props) => {
+const InviteModal = (props: Props) => {
   const classes = useStyles()
   const { open, handleClose, users } = props
   console.log(open)
@@ -100,15 +99,7 @@ const InviteModel = (props: Props) => {
   const [openSnabar, setOpenSnabar] = React.useState(false)
   const [providerType, setProviderType] = React.useState('email')
   // const [openInvite ,setOpenInvite] = React.useState(false);
-  const [openWarning, setOpenWarning] = React.useState(false)
   const { t } = useTranslation()
-
-  const handleCloseWarning = (event, reason) => {
-    if (reason === 'clickaway') {
-      return
-    }
-    setOpenWarning(false)
-  }
 
   interface Currency {
     value: string
@@ -142,12 +133,12 @@ const InviteModel = (props: Props) => {
     ValidatorForm.addValidationRule('isEmail', (value) => {
       switch (providerType) {
         case 'email':
-          if (emailRegex.test(value) !== true) {
+          if (!emailRegex.test(value)) {
             return false
           }
           break
         case 'sms':
-          if (phoneRegex.test(value) !== true) {
+          if (!phoneRegex.test(value)) {
             return false
           }
           break
@@ -158,7 +149,7 @@ const InviteModel = (props: Props) => {
 
     ValidatorForm.addValidationRule('isPasscode', (value) => {
       if (value) {
-        if (inviteCodeRegex.test(value) !== true) {
+        if (!inviteCodeRegex.test(value)) {
           return false
         }
       }
@@ -225,9 +216,7 @@ const InviteModel = (props: Props) => {
     setTargetUser(data.value)
   }
 
-  const handleInputChange = (e) => {
-    const value = e.target.value.trim()
-  }
+  const handleInputChange = (e) => {}
 
   const handleCloseSnabar = (event: React.SyntheticEvent, reason?: SnackbarCloseReason) => {
     if (reason === 'clickaway') {
@@ -487,4 +476,4 @@ const InviteModel = (props: Props) => {
   )
 }
 
-export default InviteModel
+export default InviteModal

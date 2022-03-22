@@ -29,14 +29,14 @@ import { useStyles } from '../../styles/ui'
 
 interface Props {
   openView: boolean
-  closeViewModel: () => void
+  closeViewModal: () => void
   partyAdmin?: AdminParty
   editMode: boolean
   handleEditMode: (open: boolean) => void
 }
 
 export default function ViewParty(props: Props) {
-  const { openView, closeViewModel, partyAdmin, editMode, handleEditMode } = props
+  const { openView, closeViewModal, partyAdmin, editMode, handleEditMode } = props
   const classes = useStyles()
   const [updateParty, setUpdateParty] = useState({
     location: '',
@@ -50,8 +50,7 @@ export default function ViewParty(props: Props) {
   const user = authState.user
   const adminLocationState = useLocationState()
   const adminInstanceState = useInstanceState()
-  const adminInstances = adminInstanceState
-  const instanceData = adminInstances.instances
+  const instanceData = adminInstanceState.instances
   const locationData = adminLocationState.locations
   const { t } = useTranslation()
 
@@ -106,12 +105,12 @@ export default function ViewParty(props: Props) {
     if (validateForm(updateParty, updateParty.formErrors) && partyAdmin) {
       await PartyService.patchParty(partyAdmin.id, data)
       setUpdateParty({ ...updateParty, location: '', instance: '' })
-      closeViewModel()
+      closeViewModal()
     }
   }
 
   return (
-    <ViewDrawer openView={openView} handleCloseDrawer={() => closeViewModel()}>
+    <ViewDrawer openView={openView} handleCloseDrawer={() => closeViewModal()}>
       <Paper elevation={0} className={classes.rootPaper}>
         {partyAdmin && (
           <Container maxWidth="sm">
@@ -240,14 +239,14 @@ export default function ViewParty(props: Props) {
           <Grid container spacing={2} className={classes.pdlarge}>
             <Grid item xs={6}>
               <Typography variant="h6" component="h6" className={classes.mb10}>
-                {t('admin:components.locationModel.lbl-name')}:
+                {t('admin:components.locationModal.lbl-name')}:
               </Typography>
               {/* <Typography variant="h6" component="h6" className={classes.mb10}>Updated At:</Typography> */}
               <Typography variant="h6" component="h6" className={classes.mb10}>
-                {t('admin:components.locationModel.lbl-maxuser')}:
+                {t('admin:components.locationModal.lbl-maxuser')}:
               </Typography>
               <Typography variant="h6" component="h6" className={classes.mb10}>
-                {t('admin:components.locationModel.lbl-scene')}:
+                {t('admin:components.locationModal.lbl-scene')}:
               </Typography>
             </Grid>
             <Grid item xs={6}>
@@ -286,7 +285,7 @@ export default function ViewParty(props: Props) {
             <Button className={classes.saveBtn} onClick={() => handleEditMode(true)}>
               {t('admin:components.party.edit')}
             </Button>
-            <Button onClick={() => closeViewModel()} className={classes.saveBtn}>
+            <Button onClick={() => closeViewModal()} className={classes.saveBtn}>
               {t('admin:components.party.cancel')}
             </Button>
           </div>

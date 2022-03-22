@@ -9,9 +9,8 @@ import MenuItem from '@mui/material/MenuItem'
 import Paper from '@mui/material/Paper'
 import Select from '@mui/material/Select'
 
-import { useDispatch } from '../../../store'
 import { useAuthState } from '../../../user/services/AuthService'
-import CreateModel from '../../common/CreateModel'
+import CreateModal from '../../common/CreateModal'
 import { useFetchAdminInstance } from '../../common/hooks/Instance.hooks'
 import { useFetchAdminLocations } from '../../common/hooks/Location.hooks'
 import { validateForm } from '../../common/validation/formValidation'
@@ -43,8 +42,7 @@ const CreateParty = (props: PartyProps) => {
   const adminLocationState = useLocationState()
   const locationData = adminLocationState.locations
   const adminInstanceState = useInstanceState()
-  const adminInstances = adminInstanceState
-  const instanceData = adminInstances.instances
+  const instanceData = adminInstanceState.instances
 
   //Call custom hooks
   useFetchAdminInstance(user, adminInstanceState, InstanceService)
@@ -93,7 +91,7 @@ const CreateParty = (props: PartyProps) => {
     }
   }
   return (
-    <CreateModel open={open} action="Create" text="party" handleClose={handleClose} submit={submitParty}>
+    <CreateModal open={open} action="Create" text="party" handleClose={handleClose} submit={submitParty}>
       <label>{t('admin:components.party.instance')}</label>
       <Paper
         component="div"
@@ -158,7 +156,7 @@ const CreateParty = (props: PartyProps) => {
           {t('admin:components.party.createOne')}
         </a>
       </DialogContentText>
-    </CreateModel>
+    </CreateModal>
   )
 }
 

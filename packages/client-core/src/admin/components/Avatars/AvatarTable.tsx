@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { AvatarInterface } from '@xrengine/common/src/interfaces/AvatarInterface'
 
 import { useAuthState } from '../../../user/services/AuthService'
-import ConfirmModel from '../../common/ConfirmModel'
+import ConfirmModal from '../../common/ConfirmModal'
 import TableComponent from '../../common/Table'
 import { avatarColumns, AvatarData } from '../../common/variables/avatar'
 import { AVATAR_PAGE_LIMIT } from '../../services/AvatarService'
@@ -37,7 +37,7 @@ const AvatarTable = (props: Props) => {
   const [popConfirmOpen, setPopConfirmOpen] = useState(false)
   const [avatarId, setAvatarId] = useState('')
   const [avatarName, setAvatarName] = useState('')
-  const [viewModel, setViewModel] = useState(false)
+  const [viewModal, setViewModal] = useState(false)
   const [avatarAdmin, setAvatarAdmin] = useState<AvatarInterface | null>(null)
 
   const handlePageChange = (event: unknown, newPage: number) => {
@@ -46,7 +46,7 @@ const AvatarTable = (props: Props) => {
     setPage(newPage)
   }
 
-  const handleCloseModel = () => {
+  const handleCloseModal = () => {
     setPopConfirmOpen(false)
   }
 
@@ -81,7 +81,7 @@ const AvatarTable = (props: Props) => {
             className={classes.actionStyle}
             onClick={() => {
               setAvatarAdmin(el)
-              setViewModel(true)
+              setViewModal(true)
             }}
           >
             <span className={classes.spanWhite}>{t('user:avatar.view')}</span>
@@ -111,8 +111,8 @@ const AvatarTable = (props: Props) => {
     setPopConfirmOpen(false)
   }
 
-  const closeViewModel = (open: boolean) => {
-    setViewModel(open)
+  const closeViewModal = (open: boolean) => {
+    setViewModal(open)
   }
 
   return (
@@ -130,15 +130,15 @@ const AvatarTable = (props: Props) => {
           <AvatarSelectMenu changeActiveMenu={() => setAvatarSelectMenuOpen(false)} isPublicAvatar={true} />
         )} */}
 
-      <ConfirmModel
+      <ConfirmModal
         popConfirmOpen={popConfirmOpen}
-        handleCloseModel={handleCloseModel}
+        handleCloseModal={handleCloseModal}
         submit={submitRemoveAvatar}
         name={avatarName}
         label={'avatar'}
       />
-      {avatarAdmin && viewModel && (
-        <ViewAvatar openView={viewModel} avatarData={avatarAdmin} closeViewModel={closeViewModel} />
+      {avatarAdmin && viewModal && (
+        <ViewAvatar openView={viewModal} avatarData={avatarAdmin} closeViewModal={closeViewModal} />
       )}
     </React.Fragment>
   )

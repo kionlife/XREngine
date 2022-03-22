@@ -20,11 +20,11 @@ import { useStyles } from '../../styles/ui'
 interface Props {
   open: boolean
   handleClose: any
-  closeViewModel?: any
+  closeViewModal?: any
 }
 
 const PatchGameserver = (props: Props) => {
-  const { open, handleClose, closeViewModel } = props
+  const { open, handleClose, closeViewModal } = props
   const classes = useStyles()
   const [state, setState] = React.useState({
     location: '',
@@ -42,7 +42,7 @@ const PatchGameserver = (props: Props) => {
 
   React.useEffect(() => {
     if (location.created.value) {
-      closeViewModel(false)
+      closeViewModal(false)
       setState({
         ...state,
         location: ''
@@ -62,7 +62,7 @@ const PatchGameserver = (props: Props) => {
       setState({ ...state, locationError })
     } else {
       GameserverService.patchGameserver(state.location)
-      closeViewModel(false)
+      closeViewModal(false)
     }
   }
 

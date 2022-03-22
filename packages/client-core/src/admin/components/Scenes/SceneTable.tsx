@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { SceneData, SceneMetadata } from '@xrengine/common/src/interfaces/SceneInterface'
 
 import { useAuthState } from '../../../user/services/AuthService'
-import ConfirmModel from '../../common/ConfirmModel'
+import ConfirmModal from '../../common/ConfirmModal'
 import TableComponent from '../../common/Table'
 import { sceneColumns, SceneProps, SceneViewModel } from '../../common/variables/scene'
 import { SCENE_PAGE_LIMIT, SceneService, useSceneState } from '../../services/SceneService'
@@ -50,7 +50,7 @@ const SceneTable = (props: SceneProps) => {
   //     setOpen(true)
   //   }
   // }
-  // const handleCloseModel = () => {
+  // const handleCloseModal = () => {
   //   setPopConfirmOpen(false)
   // }
   // const submitRemoveLocation = async () => {
@@ -115,9 +115,9 @@ const SceneTable = (props: SceneProps) => {
   //       handlePageChange={handlePageChange}
   //       handleRowsPerPageChange={handleRowsPerPageChange}
   //     />
-  //     <ConfirmModel
+  //     <ConfirmModal
   //       popConfirmOpen={popConfirmOpen}
-  //       handleCloseModel={handleCloseModel}
+  //       handleCloseModal={handleCloseModal}
   //       submit={submitRemoveLocation}
   //       name={sceneName}
   //       label={'scene'}

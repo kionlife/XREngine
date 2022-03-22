@@ -30,7 +30,7 @@ import CreateUserRole from './CreateUserRole'
 interface Props {
   open: boolean
   handleClose: (open: boolean) => void
-  closeViewModel: (open: boolean) => void
+  closeViewModal: (open: boolean) => void
 }
 
 interface InputSelectProps {
@@ -39,7 +39,7 @@ interface InputSelectProps {
 }
 
 const CreateUser = (props: Props) => {
-  const { open, handleClose, closeViewModel } = props
+  const { open, closeViewModal } = props
   const { t } = useTranslation()
   const classes = useStyles()
   const [openCreateUserRole, setOpenCreateUserRole] = useState(false)
@@ -135,7 +135,7 @@ const CreateUser = (props: Props) => {
     setState({ ...state, formErrors: temp })
     if (validateForm(state, state.formErrors)) {
       UserService.createUser(data)
-      closeViewModel(false)
+      closeViewModal(false)
       clearState()
     } else {
       setError(t('admin:components.user.fillRequiredField'))
@@ -145,7 +145,7 @@ const CreateUser = (props: Props) => {
 
   const handleCancel = () => {
     clearState()
-    closeViewModel(false)
+    closeViewModal(false)
   }
 
   interface ScopeData {
