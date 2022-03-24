@@ -1,0 +1,21 @@
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#
+apiVersion: v1
+data:
+  mapRoles: |
+    - groups:
+      - system:bootstrappers
+      - system:nodes
+      rolearn: arn:aws:iam::190852440951:role/eksctl-dev-msa-nodegroup-ng-b4459-NodeInstanceRole-REFYCVAP7CYR
+      username: system:node:{{EC2PrivateDNSName}}
+  mapUsers: |
+    - groups:
+      - system:masters
+      userarn: arn:aws:iam::190852440951:user/Github-Actions-User
+      username: Github-Actions-User
+kind: ConfigMap
+metadata:
+  name: aws-auth
+  namespace: kube-system
